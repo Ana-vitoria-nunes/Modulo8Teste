@@ -1,8 +1,5 @@
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertEquals
-import java.io.ByteArrayOutputStream
-import java.io.PrintStream
-
 class VendasTest {
     private val vendas=Vendas()
 
@@ -48,13 +45,34 @@ class VendasTest {
     @Test
     fun testConcluirPedido_NotificacaoEnviada1() {
         val produtos = listOf("Maçã", "Maçã", "Laranja", "Maçã")
-        val status = "Entregue"
+        val status = "Em analise"
         val tempoEstimadoEntrega = "45 minutos"
         val notificacao = vendas.concluirPedido(produtos, status, tempoEstimadoEntrega)
 
-        val expectativaDestatus = "Notificação: Seu pedido está Entregue. Tempo estimado de entrega: 45 minutos"
+        val expectativaDestatus = "Notificação: Seu pedido está Em analise. Tempo estimado de entrega: 45 minutos"
         assertEquals(expectativaDestatus, notificacao)
     }
 
     //-----teste Etapa 4-----\\
+    @Test
+    fun testProcessarPedido_EstoqueSuficiente() {
+        val pedidos = listOf("maçã", "maçã", "laranja")
+
+        val pedido = Vendas()
+        val notificacao = pedido.processarPedido(pedidos)
+
+        val expectedNotification = "Notificação: Seu pedido está Concluído. Tempo estimado de entrega: 30 minutos"
+        assertEquals(expectedNotification, notificacao)
+    }
+
+    @Test
+    fun testProcessarPedido_EstoqueInsuficiente() {
+        val pedidos = listOf("maçã", "maçã", "maçã", "maçã", "laranja", "laranja")
+
+        val pedido = Vendas()
+        val notificacao = pedido.processarPedido(pedidos)
+
+        val expectedNotification = "Desculpe, não temos estoque suficiente para atender ao seu pedido."
+        assertEquals(expectedNotification, notificacao)
+    }
 }

@@ -7,13 +7,12 @@ class Vendas {
     //-----Etapa1-----\\
     fun pedidoSemDesconto(pedido: List<String>): Double {
         for (pedidos in pedido) {
-            if (pedidos.equals("maça", ignoreCase = true)) {
+            if (pedidos.equals("maçã", ignoreCase = true)) {
                 total += maca
             } else if (pedidos.equals("laranja", ignoreCase = true)) {
                 total += laranja
             }
         }
-
         return total
     }
 
@@ -26,8 +25,8 @@ class Vendas {
 
         val laranjasComDesconto = (laranjas / 3) * 2 + laranjas % 3
 
-        total = (macasComDesconto * maca) + (laranjasComDesconto * laranja)
-        return total
+        val totalDesconto = (macasComDesconto * maca) + (laranjasComDesconto * laranja)
+        return totalDesconto
     }
 
     //-----Etapa3-----\\
@@ -37,4 +36,26 @@ class Vendas {
     }
 
     //-----Etapa4-----\\
+    var estoqueMaca = 3
+    var estoqueLaranja = 2
+    fun processarPedido(pedidos: List<String>):String {
+
+        val macasPedidas = pedidos.count { it.equals("maçã", ignoreCase = true) }
+        val laranjasPedidas = pedidos.count { it.equals("laranja", ignoreCase = true) }
+
+        if (macasPedidas > estoqueMaca || laranjasPedidas > estoqueLaranja) {
+            return "Desculpe, não temos estoque suficiente para atender ao seu pedido."
+
+        }
+        estoqueMaca -= macasPedidas
+        estoqueLaranja -= laranjasPedidas
+        val statusPedido = "A caminho"
+        val tempoEstimadoEntrega = "30 minutos"
+
+        return  concluirPedido(pedidos,statusPedido,tempoEstimadoEntrega)
+
+    }
+    fun mostrarLista(produtos: List<String>):String{
+        return "Lista:$produtos"
+    }
 }
