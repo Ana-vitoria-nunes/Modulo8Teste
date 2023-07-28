@@ -1,5 +1,7 @@
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertEquals
+import java.io.ByteArrayOutputStream
+import java.io.PrintStream
 
 class VendasTest {
     private val vendas=Vendas()
@@ -41,4 +43,18 @@ class VendasTest {
         assertEquals(1.00,total2,0.01)
         assertEquals(1.45,total3,0.01)
     }
+
+    //-----teste Etapa 3-----\\
+    @Test
+    fun testConcluirPedido_NotificacaoEnviada1() {
+        val produtos = listOf("Maçã", "Maçã", "Laranja", "Maçã")
+        val status = "Entregue"
+        val tempoEstimadoEntrega = "45 minutos"
+        val notificacao = vendas.concluirPedido(produtos, status, tempoEstimadoEntrega)
+
+        val expectativaDestatus = "Notificação: Seu pedido está Entregue. Tempo estimado de entrega: 45 minutos"
+        assertEquals(expectativaDestatus, notificacao)
+    }
+
+    //-----teste Etapa 4-----\\
 }
