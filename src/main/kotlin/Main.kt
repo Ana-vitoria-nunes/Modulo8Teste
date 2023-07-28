@@ -12,4 +12,9 @@ fun main(args: Array<String>) {
     println(vendas.pedidoComDesconto(pedido2))
     println(vendas.pedidoComDesconto(pedido3))
 
+
+    //Etapa3 Status Pedido
+    val pedido4 = listOf("maçã", "maçã", "laranja", "maçã")
+    println(vendas.concluirPedido(pedido4,"Entregue","45 minutos"))
+
 }
